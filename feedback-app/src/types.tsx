@@ -4,6 +4,8 @@ export interface FeedbackItemType {
 	text: string
 }
 
+export type NewFeedbackItemType = Omit<FeedbackItemType, 'id'>
+
 export interface FeedbackItemEditType {
 	item: FeedbackItemType | null
 	edit: boolean
@@ -12,6 +14,7 @@ export interface FeedbackItemEditType {
 export type FeedbackContextType = {
 	feedback: FeedbackItemType[]
 	feedbackEdit: FeedbackItemEditType
+	isLoading: boolean
 	deleteFeedback: (id: string) => void
 	addFeedback: (newFeedback: FeedbackItemType) => void
 	updateFeedback: (id: string, updItem: FeedbackItemType) => void
