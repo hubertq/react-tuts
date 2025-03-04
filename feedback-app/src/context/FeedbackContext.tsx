@@ -29,7 +29,7 @@ export const FeedbackProvider = ({
 
 	const fetchFeedback = async () => {
 		const response = await fetch(
-			'http://192.168.1.21:5000/feedback?_sort=id&_order=desc'
+			'http://localhost:5000/feedback?_sort=id&_order=desc'
 		)
 		const data = await response.json()
 
@@ -39,7 +39,7 @@ export const FeedbackProvider = ({
 
 	// Add feedback
 	const addFeedback = async (newFeedback: NewFeedbackItemType) => {
-		const response = await fetch('http://192.168.1.21:5000/feedback', {
+		const response = await fetch('http://localhost:5000/feedback', {
 			method: 'POST',
 			headers: {
 				'Content0-Type': 'application/json',
@@ -55,7 +55,7 @@ export const FeedbackProvider = ({
 	// Delete feedback
 	const deleteFeedback = async (id: string) => {
 		if (window.confirm('Are you sure you want to delete?')) {
-			await fetch(`http://192.168.1.21:5000/feedback/${id}`, {
+			await fetch(`http://localhost:5000/feedback/${id}`, {
 				method: 'DELETE',
 			})
 			setFeedback(feedback.filter(item => item.id !== id))
@@ -68,7 +68,7 @@ export const FeedbackProvider = ({
 		updItem: FeedbackItemType
 	) => {
 		const response = await fetch(
-			`http://192.168.1.21:5000/feedback/${id}`,
+			`http://localhost:5000/feedback/${id}`,
 			{
 				method: 'PUT',
 				headers: {
