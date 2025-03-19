@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import Layout from './Layout'
+import NotFoundPage from './pages/not-found'
+import ExplorePage from './pages/explore'
+import SignInPage from './pages/sign-in'
+import SignUpPage from './pages/sign-up'
+import CategoryPage from './pages/category'
+import ForgotPasswordPage from './pages/forgot-password'
+import CreateListingPage from './pages/create-listing'
+import EditListingPage from './pages/edit-listing'
+import ListingPage from './pages/listing'
+import ContactPage from './pages/contact'
+import ProfilePage from './pages/profile'
+import { ToastContainer } from 'react-toastify'
+import ProtectedRoute from './components/protected-route'
+import OffersPage from './pages/offers'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+	return (
+		<>
+			<ToastContainer />
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+			<BrowserRouter>
+				<Routes>
+					<Route path='/' element={<Layout />}>
+						<Route index element={<ExplorePage />} />
+						<Route path='offers' element={<OffersPage />} />
+						<Route element={<ProtectedRoute />}>
+							<Route path='profile' element={<ProfilePage />} />
+						</Route>
+						<Route path='sign-in' element={<SignInPage />} />
+						<Route path='sign-up' element={<SignUpPage />} />
+						<Route
+							path='category/:categoryName'
+							element={<CategoryPage />}
+						/>
+						<Route
+							path='forgot-password'
+							element={<ForgotPasswordPage />}
+						/>
+						<Route path='create-listing' element={<CreateListingPage />} />
+						<Route
+							path='edit-listing/:listingId'
+							element={<EditListingPage />}
+						/>
+						<Route
+							path='category/:categoryName/:listingId'
+							element={<ListingPage />}
+						/>
+						<Route path='contact/:landlordId' element={<ContactPage />} />
+						<Route path='*' element={<NotFoundPage />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</>
+	)
 }
-
 export default App
