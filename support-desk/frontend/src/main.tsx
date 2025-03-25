@@ -4,6 +4,8 @@ import { Provider } from "react-redux"
 import App from "./App"
 import { store } from "./app/store"
 import "./index.css"
+import { BrowserRouter } from "react-router"
+import { ToastContainer } from "react-toastify"
 
 const container = document.getElementById("root")
 
@@ -12,8 +14,11 @@ if (container) {
 
   root.render(
     <React.StrictMode>
+      <ToastContainer />
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     </React.StrictMode>,
   )

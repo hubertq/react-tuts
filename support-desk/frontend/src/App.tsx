@@ -1,67 +1,34 @@
-import "./App.css"
-import { Counter } from "./features/counter/Counter"
-import { Quotes } from "./features/quotes/Quotes"
-import logo from "./logo.svg"
+import { Route, Routes } from "react-router"
+import Layout from "./layout"
+import HomePage from "./pages/home"
+import RegisterPage from "./pages/register"
+import LoginPage from "./pages/login"
+import NotFoundPage from "./pages/not-found"
+import CreateTicketPage from "./pages/create-ticket"
+import ProtectedRoute from "./components/protected-route"
+import TicketsPage from "./pages/tickets"
+import TicketPage from "./pages/ticket"
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Quotes />
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://reselect.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Reselect
-          </a>
-        </span>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/create-ticket" element={<CreateTicketPage />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/tickets" element={<TicketsPage />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/ticket/:ticketId" element={<TicketPage />} />
+        </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/notfound" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }
 
